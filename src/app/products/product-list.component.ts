@@ -8,6 +8,7 @@ export class ProductListComponent {
     pageTitle: string = 'Product List';
     imageWidth: number = 50;
     imageMargin: number = 2;
+    showImage: boolean = false;
     products: any[] = [
         {
             "productId": 1,
@@ -29,5 +30,11 @@ export class ProductListComponent {
             "starRating": 4.2,
             "imageUrl": "assets/images/garden_cart.png"
         }
-    ]
+    ];
+
+    // By convention, class methods are created after its properties are defined.
+    // We don't need the "function" keyword here
+    toggleImage() : void {
+        this.showImage = !this.showImage;
+    }
  }
