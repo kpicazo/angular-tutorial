@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { IProduct } from "./product";
+import { ProductService } from "./product.service";
 
 @Component({
     selector: 'pm-products',
@@ -7,6 +8,7 @@ import { IProduct } from "./product";
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+
     pageTitle: string = 'Product List';
     imageWidth: number = 50;
     imageMargin: number = 2;
@@ -24,31 +26,15 @@ export class ProductListComponent implements OnInit {
 
     filteredProducts: IProduct[] = [];
 
-    products: IProduct[] = [
-        {
-            "productId": 1,
-            "productName": "Leaf Rake",
-            "productCode": "GDN-0011",
-            "releaseDate": "March 19, 2021",
-            "description": "Leaf rake with 48-inch wooden handle.",
-            "price": 19.95,
-            "starRating": 3.2,
-            "imageUrl": "assets/images/leaf_rake.png"
-        },
-        {
-            "productId": 2,
-            "productName": "Garden Cart",
-            "productCode": "GDN-0023",
-            "releaseDate": "March 18, 2021",
-            "description": "15 gallon capacity rolling garden cart",
-            "price": 32.99,
-            "starRating": 4.2,
-            "imageUrl": "assets/images/garden_cart.png"
-        }
-    ];
+    products: IProduct[] = [];
 
     // By convention, class methods are created after its properties are defined.
-    // We don't need the "function" keyword here
+    // We don't need the "function" keyword here.
+
+    // Shorthand constructor syntax for initializing a class property.
+    // We use dependency injection here to inject the product service when component is instantiated.
+    constructor(private productService: ProductService) { }
+
     performFilter(filterBy: string) : IProduct[] {
         // we need a case insensitive comparison
         filterBy = filterBy.toLocaleLowerCase();
@@ -62,7 +48,11 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.listFilter = 'cart';
+        // Fetch data here
+        this.products = this.productService.getProducts();
+
+        // By default set filteredProducts to all products fetched above
+        this.filteredProducts = this.products;
     }
 
     // This fires when star rating is clicked on
