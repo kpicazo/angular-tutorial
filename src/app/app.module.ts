@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './products/product-list.component';
@@ -15,10 +16,11 @@ import { StarComponent } from './shared/star.component';
     ConvertToSpacesPipe,
     StarComponent
   ],
-  // directives, components and pipes from Angular itself, or from other sources (e.g. third-party libraries)
+  // directives, components and pipes from Angular itself, or from external sources (e.g. third-party libraries)
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })

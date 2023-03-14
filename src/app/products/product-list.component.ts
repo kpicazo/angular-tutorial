@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 import { IProduct } from "./product";
 import { ProductService } from "./product.service";
 
@@ -7,12 +8,16 @@ import { ProductService } from "./product.service";
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
 
     pageTitle: string = 'Product List';
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = false;
+    errorMessage: string = '';
+
+    // we need to store subscription in a variable so we can unsubscribe 
+    sub!: Subscription;
 
     private _listFilter: string = '';
     get listFilter(): string {
@@ -49,10 +54,17 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         // Fetch data here
-        this.products = this.productService.getProducts();
+        this.sub = this.productService.getProducts().subscribe({
+            next: products => {
+                this.products = products;
+                this.filteredProducts = this.products;
+            },
+            error: err => this.errorMessage = err
+        });
+    }
 
-        // By default set filteredProducts to all products fetched above
-        this.filteredProducts = this.products;
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     // This fires when star rating is clicked on
