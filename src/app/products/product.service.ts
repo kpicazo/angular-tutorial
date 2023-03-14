@@ -3,7 +3,9 @@ import { Injectable } from "@angular/core";
 import { Observable, catchError, tap, throwError } from "rxjs";
 import { IProduct } from "./product";
 
+// All services need to be registered with an Angular injector.
 @Injectable({
+    // This is registered with root application injector
     providedIn: 'root'
 })
 export class ProductService {
