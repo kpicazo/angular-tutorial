@@ -6,12 +6,12 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './products/product-list.component';
 
 @NgModule({
-  // directives and components declared in this app
+  // directives, components and pipes declared in this app
   declarations: [
     AppComponent,
     ProductListComponent
   ],
-  // directives and components from Angular itself, or from other sources (e.g. third-party libraries)
+  // directives, components and pipes from Angular itself, or from other sources (e.g. third-party libraries)
   imports: [
     BrowserModule,
     FormsModule
